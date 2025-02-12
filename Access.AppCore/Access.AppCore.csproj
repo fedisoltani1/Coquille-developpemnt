@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\Persistence\Repositories\" />
+    <Folder Include="Interfaces\Persistence\Services\" />
+    <Folder Include="Services\" />
     <Folder Include="Validator\" />
   </ItemGroup>
 

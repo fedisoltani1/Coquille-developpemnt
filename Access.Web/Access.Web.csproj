@@ -14,7 +14,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
     <PackageReference Include="NLog.MailKit" Version="5.3.0" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.15" />
     <PackageReference Include="Roslynator.Analyzers" Version="4.12.9">
@@ -34,6 +38,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Access.Infrastructure\Access.Infrastructure.csproj" />
+    <ProjectReference Include="..\Application.Configuration\Application.Configuration.csproj" />
   </ItemGroup>
 
   <ItemGroup>

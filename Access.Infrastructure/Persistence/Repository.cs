@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Access.Infrastructure.Persistence
 {
-    internal class Repository<TEntite, TId>(AccessDbContext dbContext)
+    internal class Repository<TEntite, TId>(ColiZenDbContext dbContext)
      : IRepository<TEntite, TId>
      where TEntite : EntiteBase<TId>
      where TId : IEquatable<TId>

@@ -1,0 +1,305 @@
+﻿<style >
+/* Conteneur principal du calendrier */
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* En-tête du calendrier */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+    /* Boutons de navigation */
+    .calendar-header button {
+        font-size: 14px;
+    }
+
+/* Table du calendrier */
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Fixe la largeur des colonnes */
+}
+
+    /* Colonnes et cellules du calendrier */
+    .calendar-table th,
+    .calendar-table td {
+        border: 1px solid #e0e0e0;
+        padding: 0;
+        vertical-align: top;
+        position: relative;
+        height: 150px; /* Hauteur par défaut des cellules */
+        overflow: hidden;
+    }
+
+    /* Colonne des jours (en-tête) */
+    .calendar-table th {
+        background-color: #fdfdfd; /* Arrière-plan presque blanc */
+        font-size: 14px;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 3px 0; /* Réduit l'espace vertical autour du texte */
+        width: 120px; /* Largeur fixe pour les colonnes */
+        height: 60px;
+        border-bottom: 1px solid #d0d0d0; /* Ligne de séparation subtile */
+        margin-bottom: -1px; /* Rapproche la ligne de séparation de la première ligne de date */
+    }
+
+/* Suppression d'espaces entre les cellules */
+.calendar-table {
+    border-spacing: 0; /* Évite les espaces inutiles entre les bordures */
+}
+
+    /* Première cellule du tableau (les dates) */
+    .calendar-table td {
+        border-top: 1px solid #d0d0d0; /* Ligne subtile entre l'en-tête et les dates */
+        background-color: #ffffff;
+    }
+
+/* Numéro du jour en haut à gauche */
+.day-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #374151;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2px 5px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Conteneur des événements */
+.course-event-container {
+    position: relative;
+    height: 100%;
+    overflow-y: auto; /* Permet de faire défiler si trop d'événements */
+    padding-top: 20px; /* Espace pour le numéro du jour */
+}
+
+/* Événements dans les cellules */
+.course-event {
+    background-color: #f5f5f5;
+    color: #d38888;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 10px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .course-event:hover {
+        background-color: rgba(211, 136, 136, 0.3);
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+
+
+.fc-customToday-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-customToday-button:hover {
+        background-color: #b57575;
+    }
+
+.fc-dayGridMonth-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-dayGridMonth-button:hover {
+        background-color: #b57575;
+    }
+
+.fc-timeGridWeek-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-timeGridWeek-button:hover {
+        background-color: #b57575;
+    }
+
+.fc-timeGridDay-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-timeGridDay-button:hover {
+        background-color: #b57575;
+    }
+
+
+.fc-event {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2em;
+    padding: 5px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fc-daygrid-day-events {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.fc-event:hover {
+    background-color: #b57575;
+}
+
+@@media (max-width: 768px) {
+    .fc-event {
+        font-size: 1em;
+    }
+}
+
+.fc-customToday-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-customToday-button:hover {
+        background-color: #b57575;
+    }
+
+.fc-dayGridMonth-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-dayGridMonth-button:hover {
+        background-color: #b57575;
+    }
+
+.fc-timeGridWeek-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-timeGridWeek-button:hover {
+        background-color: #b57575;
+    }
+
+.fc-timeGridDay-button {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+    .fc-timeGridDay-button:hover {
+        background-color: #b57575;
+    }
+
+
+.fc-event {
+    background-color: #d38888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2em;
+    padding: 5px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fc-daygrid-day-events {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.fc-event:hover {
+    background-color: #b57575;
+}
+
+@@media (max-width: 768px) {
+    .fc-event {
+        font-size: 1em;
+    }
+}
+/* Custom card styles */
+.custom-card {
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .custom-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+.avatar-title img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+    border-top: 1px solid #e2e2e2;
+}
+
+.badge-custom {
+    background-color: #d38888;
+    color: white;
+}
+
+.text-highlight {
+    color: #d38888;
+}
+
+.contact-links a {
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+    .contact-links a:hover {
+        color: #d38888;
+    }
+
+</style >

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Access.Infrastructure.Persistence
 {
-    internal class UnitOfWork(AccessDbContext dbContext)
+    internal class UnitOfWork(ColiZenDbContext dbContext)
     : IUnitOfWork
     {
         public async Task<Resultat<int>> SauvegarderResultatAsync()

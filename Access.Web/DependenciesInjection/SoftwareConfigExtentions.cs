@@ -1,4 +1,8 @@
-﻿namespace Access.Web.DependenciesInjection
+﻿using Access.Infrastructure.Persistence;
+
+using Microsoft.EntityFrameworkCore;
+
+namespace Access.Web.DependenciesInjection
 {
     internal static class SoftwareConfigExtentions
     {
@@ -35,11 +39,14 @@
                 context.Response.Headers.Append("X-Frame-Options", "SAMEORIGIN");
                 await next();
             });
-
+            DatabaseInitializer.ApplyAllMigrations(app);
             app.MapRazorPages();
+           
+
             using (var scope = app.Services.CreateScope())
             {
-                // scope.ServiceProvider.AjouterDonneesClientExemple();
+                //var dbContext = scope.ServiceProvider.GetRequiredService<ColiZenDbContext>();
+                //dbContext.Database.Migrate();
             }
 
             return app;
