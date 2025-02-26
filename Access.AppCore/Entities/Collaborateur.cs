@@ -1,6 +1,6 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Collaborateur
+public class Collaborateur : Bases.EntiteBase<int>
 {
 
     public Collaborateur()
@@ -9,8 +9,6 @@ public class Collaborateur
         SocieteAgences = new HashSet<SocieteAgence>();
         SocieteDepartements = new HashSet<SocieteDepartement>();
     }
-
-    public int Id { get; set; }
 
     public string NomComplet { get; set; } = null!;
 

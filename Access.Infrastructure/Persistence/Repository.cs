@@ -42,6 +42,26 @@ namespace Access.Infrastructure.Persistence
             return (await requete.FirstOrDefaultAsync(expression)) !;
         }
 
+        public virtual async Task<TEntite> FirstAsync(
+            Expression<Func<TEntite, bool>>? expression = null,
+            params Func<IQueryable<TEntite>, IIncludableQueryable<TEntite, object>>[] includes)
+        {
+            IQueryable<TEntite> requete = Entites;
+
+            if (includes.Any())
+            {
+                foreach (var include in includes)
+                {
+                    requete = include(requete);
+                }
+            }
+
+            return expression is null
+                ? await requete.FirstAsync()
+                : await requete.FirstAsync(expression);
+        }
+
+
         public virtual async Task<int> CountAsync()
         {
             return await Entites.CountAsync();
@@ -84,6 +104,15 @@ namespace Access.Infrastructure.Persistence
             }
 
             return await requete.Where(expression).ToListAsync();
+        }
+
+        public void Detacher(TEntite entite)
+        {
+            var entry = dbContext.Entry(entite);
+            if (entry.State != EntityState.Detached)
+            {
+                entry.State = EntityState.Detached;
+            }
         }
     }
 }

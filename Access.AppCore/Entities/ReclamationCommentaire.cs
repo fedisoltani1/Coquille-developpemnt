@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ReclamationCommentaire
+public class ReclamationCommentaire : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public int ReclamationId { get; set; }
 
     public int CollaborateurId { get; set; }

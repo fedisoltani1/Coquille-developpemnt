@@ -1,8 +1,6 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ConsoleStatut
+public class ConsoleStatut : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string Intitule { get; set; } = null!;
 }

@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Access.Infrastructure.Persistence.Configuration
 {
     public class TaxesEntityTypeConfiguration
-         : IEntityTypeConfiguration<Taxes>
+         : IEntityTypeConfiguration<Taxe>
     {
-        public void Configure(EntityTypeBuilder<Taxes> builder)
+        public void Configure(EntityTypeBuilder<Taxe> builder)
         {
             builder.ToTable("Taxes");
-            builder.HasKey(e => e.Id).HasName("PK_TaxesValeurAjoutee");
+            builder.HasKey(e => e.Id).HasName("PK_Taxes");
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+                   .ValueGeneratedOnAdd();
 
             builder.Property(e => e.Code)
                 .HasMaxLength(100)
@@ -27,7 +27,7 @@ namespace Access.Infrastructure.Persistence.Configuration
 
             builder.HasOne(d => d.TaxeType).WithMany(p => p.Taxes)
                 .HasForeignKey(d => d.TaxeTypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Taxes_Taxes");
         }
     }

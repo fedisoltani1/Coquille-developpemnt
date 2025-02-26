@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ClientContact
+public class ClientContact : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public int ClientId { get; set; }
 
     public string NomComplet { get; set; } = null!;

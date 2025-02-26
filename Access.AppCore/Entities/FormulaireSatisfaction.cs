@@ -1,10 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class FormulaireSatisfaction
+public class FormulaireSatisfaction : Bases.EntiteBase<int>
 {
-
-    public int Id { get; set; }
-
     public string Numero { get; set; } = null!;
 
     public DateOnly Date { get; set; }

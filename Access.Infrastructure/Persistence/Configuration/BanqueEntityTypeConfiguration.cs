@@ -10,8 +10,7 @@ namespace Access.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<Banque> builder)
         {
             builder.ToTable("Banques");
-            builder.HasKey(e => e.Id)
-                     .HasName("Id");
+            builder.HasKey(e => e.Id);
             builder.Property(e => e.Id)
                          .ValueGeneratedOnAdd();
             builder.Property(e => e.Intitule)

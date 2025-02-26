@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class InventaireStockTheorique
+public class InventaireStockTheorique : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public int InventaireId { get; set; }
 
     public int CommandeId { get; set; }

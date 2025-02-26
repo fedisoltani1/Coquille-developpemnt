@@ -1,0 +1,444 @@
+﻿@model Access.Web.Modeles.Localisation.LocalisationViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card card-design">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Gestion des Localisations</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-design">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Liste des Gouvernorats</h5>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="showPopupAddGouv()">
+                        <i class="fa fa-plus-circle me-2"></i> Ajouter
+                    </button>
+                </div>
+
+                @if (Model.Gouvernorats != null && Model.Gouvernorats.Any())
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="align-middle col-2">Code</th>
+                                <th class="align-middle col-9 text-center">Intitulé</th>
+                                <th class="align-middle col-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var gouvernorat in Model.Gouvernorats)
+                            {
+                                <tr>
+                                    <td>@gouvernorat.Code</td>
+                                    <td class="text-center">@gouvernorat.Intitule</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-black me-1"
+                                                onclick="showPopupEditGouv(@gouvernorat.Id, '@gouvernorat.Code', '@gouvernorat.Intitule')"
+                                                title="Modifier">
+                                            <i class="fa fa-edit" style="color:black"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-black me-1"
+                                                onclick="deleteGouvernorat(@gouvernorat.Id)"
+                                                title="Supprimer">
+                                            <i class="fa fa-trash" style="color:red"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-center text-muted">
+                        <i class="fa fa-exclamation-circle"></i> Aucun gouvernorat trouvé.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 mt-4">
+        <div class="card card-design">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Liste des Villes</h5>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="showPopupAddVille()">
+                        <i class="fa fa-plus-circle me-2"></i> Ajouter
+                    </button>
+                </div>
+
+                @if (Model.Villes != null && Model.Villes.Any())
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="align-middle col-1">Code</th>
+                                <th class="align-middle col-5 text-center">Intitulé</th>
+                                <th class="align-middle col-5 text-center">Gouvernorat</th>
+                                <th class="align-middle col-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ville in Model.Villes)
+                            {
+                                <tr>
+                                    <td>@ville.Code</td>
+                                    <td class="text-center">@ville.Intitule</td>
+                                    <td class="text-center">@ville.Gouvernorat.Intitule</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-black me-1"
+                                                onclick="showPopupEditVille(@ville.Id, '@ville.Code', '@ville.Intitule', '@ville.GouvernoratId')"
+                                                title="Modifier">
+                                            <i class="fa fa-edit" style="color:black"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-outline-black me-1"
+                                                onclick="deleteVille(@ville.Id)"
+                                                title="Supprimer">
+                                            <i class="fa fa-trash" style="color:red"></i>
+                                        </button>
+
+                                    </td>
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-center text-muted">
+                        <i class="fa fa-exclamation-circle"></i> Aucune ville trouvée.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 mt-4">
+        <div class="card card-design">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Liste des Cités</h5>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="showPopupAddCite()">
+                        <i class="fa fa-plus-circle me-2"></i> Ajouter
+                    </button>
+                </div>
+
+                @if (Model.Cites != null && Model.Cites.Any())
+                {
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="align-middle col-1">Code</th>
+                                <th class="align-middle col-4 text-center">Intitulé</th>
+                                <th class="align-middle col-3 text-center">Gouvernorat</th>
+                                <th class="align-middle col-3 text-center">Ville</th>
+                                <th class="align-middle col-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cite in Model.Cites)
+                            {
+                                <tr>
+                                    <td>@cite.Code</td>
+                                    <td class="text-center">@cite.Intitule</td>
+                                    <td class="text-center">@cite.Gouvernorat.Intitule</td>
+                                    <td class="text-center">@cite.Ville.Intitule</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-black me-1"
+                                                onclick="showPopupEditCite(@cite.Id, '@cite.Code', '@cite.Intitule', '@cite.GouvernoratId', '@cite.VilleId')"
+                                                title="Modifier">
+                                            <i class="fa fa-edit" style="color:black"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-outline-black me-1"
+                                                onclick="deleteCite(@cite.Id)"
+                                                title="Supprimer">
+                                            <i class="fa fa-trash" style="color:red"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            }
+ll                    </table>
+                }
+                else
+                {
+                    <p class="text-center text-muted">
+                        <i class="fa fa-exclamation-circle"></i> Aucune cité trouvée.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* ajouter gouv *@
+<div class="modal fade" id="addGouv" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un gouvernorat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="CreateGouv">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="gouvernoratCode" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="gouvernoratCode" name="Code" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gouvernoratIntitule" class="form-label">Intitulé</label>
+                        <input type="text" class="form-control" id="gouvernoratIntitule" name="Intitule" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" id="btnAddItem">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* modifier gouv *@
+<div class="modal fade" id="editGouv" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifier un gouvernorat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="EditGouv">
+                <input type="hidden" id="editGouvId" name="Id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editGouvCode" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="editGouvCode" name="Code" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editGouvIntitule" class="form-label">Intitulé</label>
+                        <input type="text" class="form-control" id="editGouvIntitule" name="Intitule" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" id="btnEditGouv">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@* ajouter ville *@
+<div class="modal fade" id="addVille" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une ville</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="CreateVille">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="villeCode" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="villeCode" name="Code" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="villeIntitule" class="form-label">Intitulé</label>
+                        <input type="text" class="form-control" id="villeIntitule" name="Intitule" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="GouvernoratId" class="form-label">Gouvernorat</label>
+                        <select class="form-select" name="GouvernoratId" id="GouvernoratId">
+                            <option value="">Sélectionner un gouvernorat</option>
+                            @foreach (var gouvernorat in ViewData["Gouvernorats"] as SelectList)
+                            {
+                                <option value="@gouvernorat.Value">@gouvernorat.Text</option>
+                            }
+
+
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" id="btnAddVilleItem">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* modifier ville *@
+<div class="modal fade" id="editVille" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifier ville</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="EditVille">
+                <div class="modal-body">
+                    <input type="hidden" id="editVilleId" name="Id" />
+                    <div class="mb-3">
+                        <label for="editVilleCode" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="editVilleCode" name="Code" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editVilleIntitule" class="form-label">Intitulé</label>
+                        <input type="text" class="form-control" id="editVilleIntitule" name="Intitule" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editGouvernoratId" class="form-label">Gouvernorat</label>
+                        <select class="form-select" name="GouvernoratId" id="editGouvernoratId"
+                            <option value="">Sélectionner un gouvernorat</option>
+                            @foreach (var gouvernorat in ViewData["Gouvernorats"] as SelectList)
+                            {
+                                            <option value="@gouvernorat.Value">@gouvernorat.Text</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" id="btnEditVille">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* ajouter cite  *@
+<div class="modal fade" id="addCite" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une cité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="CreateCite">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="citeCode" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="citeCode" name="Code" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="citeIntitule" class="form-label">Intitulé</label>
+                        <input type="text" class="form-control" id="citeIntitule" name="Intitule" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="GouvernoratId" class="form-label">Gouvernorat</label>
+                        <select class="form-select" name="GouvernoratId" id="GouvernoratId">
+                            <option value="">Sélectionner un gouvernorat</option>
+                            @foreach (var gouvernorat in ViewData["Gouvernorats"] as SelectList)
+                            {
+                                <option value="@gouvernorat.Value">@gouvernorat.Text</option>
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="VilleId" class="form-label">Gouvernorat</label>
+                        <select class="form-select" name="VilleId" id="VilleId">
+                            <option value="">Sélectionner un gouvernorat</option>
+                            @foreach (var ville in ViewData["Villes"] as SelectList) 
+                            {
+                                <option value="@ville.Value">@ville.Text</option>
+                            }
+
+
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" id="btnAddCiteItem">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* modifier cite *@
+<div class="modal fade" id="editCite" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifier cité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="EditCite">
+                <div class="modal-body">
+                    <input type="hidden" id="editCiteId" name="Id" />
+                    <div class="mb-3">
+                        <label for="editCiteCode" class="form-label">Code</label>
+                        <input type="text" class="form-control" id="editCiteCode" name="Code" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCiteIntitule" class="form-label">Intitulé</label>
+                        <input type="text" class="form-control" id="editCiteIntitule" name="Intitule" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editGouvernoratId" class="form-label">Gouvernorat</label>
+                        <select class="form-select" name="GouvernoratId" id="editGouvernoratId"
+                            <option value="">Sélectionner un gouvernorat</option>
+                            @foreach (var gouvernorat in ViewData["Gouvernorats"] as SelectList)
+                            {
+                                                <option value="@gouvernorat.Value">@gouvernorat.Text</option>
+                            }
+                        </select>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="editVilleId" class="form-label">Ville</label>
+                        <select class="form-select" name="VilleId" id="editVilleId"
+                            <option value="">Sélectionner une ville</option>
+                            @foreach (var ville in ViewData["Villes"] as SelectList)
+                            {
+                                                            <option value="@ville.Value">@ville.Text</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" id="btnEditCite">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript" src="~/js/Localisation/Localisation.js"></script>
+}

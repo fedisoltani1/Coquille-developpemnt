@@ -1,5 +1,4 @@
 ﻿using Access.Infrastructure.Persistence;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace Access.Web.DependenciesInjection
@@ -8,16 +7,26 @@ namespace Access.Web.DependenciesInjection
     {
         internal static WebApplication ConfigurerIntergiciels(this WebApplication app, IConfiguration configuration)
         {
+            // Appliquer les migrations avant de démarrer les intergiciels
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var dbContext = scope.ServiceProvider.GetRequiredService<ColiZenDbContext>();
+            //    dbContext.Database.Migrate(); // Applique les migrations ici
+            //}
+
+            // Configuration des intergiciels
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Erreur/ErreurTechnique");
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
+            DatabaseInitializer.ApplyAllMigrations(app);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy(new CookiePolicyOptions
@@ -25,30 +34,16 @@ namespace Access.Web.DependenciesInjection
                 Secure = CookieSecurePolicy.Always,
             });
 
-            // la session est toujours disponible
             app.UseSession();
             app.UseAuthentication();
             app.UseRouting();
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
             app.UseAuthorization();
 
-            // protection de certains contenus avec des paramètres dans l'entête de réponse
-            app.Use(async (context, next) =>
-            {
-                context.Response.Headers.Append("Content-Security-Policy", "default-src 'self' 'unsafe-inline' 'unsafe-eval' *.blob.core.windows.net; frame-ancestors 'self'; img-src 'self' *.blob.core.windows.net data:;");
-                context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
-                context.Response.Headers.Append("X-Frame-Options", "SAMEORIGIN");
-                await next();
-            });
-            DatabaseInitializer.ApplyAllMigrations(app);
-            app.MapRazorPages();
-           
-
-            using (var scope = app.Services.CreateScope())
-            {
-                //var dbContext = scope.ServiceProvider.GetRequiredService<ColiZenDbContext>();
-                //dbContext.Database.Migrate();
-            }
-
+            // Autres configurations des intergiciels...
+            
             return app;
         }
 

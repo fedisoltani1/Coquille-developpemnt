@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ZoneVille
+public class ZoneVille : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public int ZoneId { get; set; }
 
     public int GouvernoratId { get; set; }

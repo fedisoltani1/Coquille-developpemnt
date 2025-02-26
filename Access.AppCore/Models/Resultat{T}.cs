@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Access.AppCore.Models
+﻿namespace Access.AppCore.Models
 {
     public class Resultat<T> : Resultat
     {

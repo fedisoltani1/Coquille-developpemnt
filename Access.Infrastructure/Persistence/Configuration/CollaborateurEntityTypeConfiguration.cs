@@ -12,7 +12,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.ToTable("Collaborateurs");
             builder.HasKey(e => e.Id).HasName("PK_Collaborateur");
             builder.Property(e => e.Id)
-       .ValueGeneratedOnAdd();
+             .ValueGeneratedOnAdd();
             builder.Property(e => e.Adresse)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -61,13 +61,11 @@ namespace Access.Infrastructure.Persistence.Configuration
 
             builder.HasOne(d => d.Agence).WithMany(p => p.Collaborateurs)
                 .HasForeignKey(d => d.AgenceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Collaborateurs_SocieteAgences");
+                .HasConstraintName("FK_Collaborateurs_SocieteAgences").OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Role).WithMany(p => p.Collaborateurs)
                 .HasForeignKey(d => d.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Collaborateurs_CollaborateurRoles");
+                .HasConstraintName("FK_Collaborateurs_CollaborateurRoles").OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

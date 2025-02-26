@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Console
+public class Console : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string Numero { get; set; } = null!;
 
     public DateOnly Date { get; set; }

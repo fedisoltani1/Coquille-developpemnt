@@ -11,7 +11,7 @@ namespace Access.Infrastructure.Persistence.Configuration
         {
             builder.ToTable("ChequierStatuts");
             builder.HasKey(e => e.Id)
-                     .HasName("Id");
+                     ;
             builder.Property(e => e.Id)
        .ValueGeneratedOnAdd();
             builder.Property(e => e.Intitule)

@@ -10,35 +10,35 @@ namespace Access.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<Cheque> builder)
         {
             builder.ToTable("Cheques");
-            builder.HasKey(e => e.Id)
-                     .HasName("Id");
+            builder.HasKey(e => e.Id);
             builder.Property(e => e.Id)
                    .ValueGeneratedOnAdd();
             builder.Property(e => e.ChequeStatutId)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                .IsRequired();  // ChequeStatutId devrait être une clé étrangère obligatoire
             builder.Property(e => e.IsActif)
                 .HasDefaultValue(true)
                 .HasColumnName("isActif");
             builder.Property(e => e.Numero)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-          
-            builder.HasOne(d => d.ChequeStatut).WithMany(p => p.Cheques)
-               .HasForeignKey(d => d.ChequeStatutId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("FK_Cheques_ChequeStatuts");
+
+            builder.HasOne(d => d.ChequeStatut)
+                .WithMany(p => p.Cheques)
+                .HasForeignKey(d => d.ChequeStatutId)
+                .HasConstraintName("FK_Cheques_ChequeStatuts")
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Banque)
-                .WithMany(p => p.Cheques) 
-                .HasForeignKey(d => d.BanqueId) 
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Cheques_Banques");
+                .WithMany(p => p.Cheques)
+                .HasForeignKey(d => d.BanqueId)
+                .HasConstraintName("FK_Cheques_Banques")
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasOne(d => d.Chequier)
-               .WithMany(p => p.Cheques)
-               .HasForeignKey(d => d.ChequierId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("FK_Cheques_Chequiers");
+                .WithMany(p => p.Cheques)
+                .HasForeignKey(d => d.ChequierId)
+                .HasConstraintName("FK_Cheques_Chequiers")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

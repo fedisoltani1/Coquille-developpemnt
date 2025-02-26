@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Societe
+public class Societe : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string RaisonSocial { get; set; } = null!;
 
     public string MatriculeFiscale { get; set; } = null!;

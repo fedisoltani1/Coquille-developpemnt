@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Facture
+public class Facture : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public int ClientId { get; set; }
 
     public string Numero { get; set; } = null!;

@@ -12,7 +12,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.ToTable("SocieteAgences");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+                    .ValueGeneratedOnAdd();
             builder.Property(e => e.Adresse)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -22,7 +22,15 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.Property(e => e.CodePostal)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            builder.Property(e => e.CollaborateurName)
+            builder.Property(e => e.ResponsableName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+            builder.Property(e => e.ResponsableTel)
+                .HasMaxLength(15)
+                .IsUnicode(false);
+
+            builder.Property(e => e.ResponsableEmail)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             builder.Property(e => e.Gouvernorat)
@@ -43,11 +51,6 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.Property(e => e.Ville)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-
-            builder.HasOne(d => d.Collaborateur).WithMany(p => p.SocieteAgences)
-                .HasForeignKey(d => d.CollaborateurId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_SocieteAgences_Collaborateurs");
         }
     }
 }

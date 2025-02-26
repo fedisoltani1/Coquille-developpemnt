@@ -1,13 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ModesReglementFacturation
+public class ModesReglementFacturation : Bases.EntiteBase<int>
 {
     public ModesReglementFacturation()
     {
         Clients = new HashSet<Client>();
     }
-
-    public int Id { get; set; }
 
     public string Code { get; set; } = null!;
 

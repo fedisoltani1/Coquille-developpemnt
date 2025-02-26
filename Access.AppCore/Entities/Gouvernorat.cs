@@ -1,6 +1,6 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Gouvernorat
+public class Gouvernorat : Bases.EntiteBase<int>
 {
     public Gouvernorat()
     {
@@ -8,8 +8,6 @@ public class Gouvernorat
         Villes = new HashSet<Ville>();
         ZoneVilles = new HashSet<ZoneVille>();
     }
-
-    public int Id { get; set; }
 
     public string Code { get; set; } = null!;
 

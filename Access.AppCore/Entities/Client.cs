@@ -1,14 +1,12 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Client
+public class Client : Bases.EntiteBase<int>
 {
     public Client()
     {
         ClientContacts = new HashSet<ClientContact>();
         Clients = new HashSet<Client>();
     }
-
-    public int Id { get; set; }
 
     public string Code { get; set; } = null!;
 

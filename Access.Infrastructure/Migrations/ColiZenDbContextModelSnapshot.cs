@@ -46,8 +46,7 @@ namespace Access.Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("isActif");
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.ToTable("Banques", (string)null);
                 });
@@ -64,8 +63,6 @@ namespace Access.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ChequeStatutId")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
                         .HasColumnType("int");
 
                     b.Property<int>("ChequierId")
@@ -83,8 +80,7 @@ namespace Access.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.HasIndex("BanqueId");
 
@@ -109,8 +105,7 @@ namespace Access.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.ToTable("ChequeStatuts", (string)null);
                 });
@@ -153,8 +148,7 @@ namespace Access.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.HasIndex("BanqueId");
 
@@ -177,8 +171,7 @@ namespace Access.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.ToTable("ChequierStatuts", (string)null);
                 });
@@ -200,12 +193,6 @@ namespace Access.Infrastructure.Migrations
                     b.Property<int>("GouvernoratId")
                         .HasColumnType("int");
 
-                    b.Property<string>("GouvernoratIntitule")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
                     b.Property<string>("Intitule")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -215,14 +202,7 @@ namespace Access.Infrastructure.Migrations
                     b.Property<int>("VilleId")
                         .HasColumnType("int");
 
-                    b.Property<string>("VilleIntitule")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.HasIndex("GouvernoratId");
 
@@ -428,9 +408,7 @@ namespace Access.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("NombreTentativeLivraison")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(3);
+                        .HasColumnType("int");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
@@ -781,7 +759,7 @@ namespace Access.Infrastructure.Migrations
                         .HasColumnName("isAfficheClient");
 
                     b.HasKey("Id")
-                        .HasName("PK_CommandeEtat");
+                        .HasName("PK_CommandeEtape");
 
                     b.ToTable("CommandeEtapes", (string)null);
                 });
@@ -955,7 +933,7 @@ namespace Access.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FormulaireSatisfactionQuestionsTypes", (string)null);
+                    b.ToTable("EmballageCommandeStauts", (string)null);
                 });
 
             modelBuilder.Entity("Access.AppCore.Entities.FacturationCategory", b =>
@@ -1156,6 +1134,25 @@ namespace Access.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FormulaireSatisfactionQuestions", (string)null);
+                });
+
+            modelBuilder.Entity("Access.AppCore.Entities.FormulaireSatisfactionQuestionsType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Intitule")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FormulaireSatisfactionQuestionsTypes", (string)null);
                 });
 
             modelBuilder.Entity("Access.AppCore.Entities.FormulaireSatisfactionReponse", b =>
@@ -2173,9 +2170,9 @@ namespace Access.Infrastructure.Migrations
                             MatriculeFiscale = "0000000/A/A/A/000",
                             NomCommercial = "KoliZen",
                             PremierResponsable = "Fedi",
-                            RaisonSocial = "xxx",
-                            RegistreCommerce = "xxxx",
-                            Secteur = "x",
+                            RaisonSocial = "cc",
+                            RegistreCommerce = "L/05/500/m",
+                            Secteur = "Livraison",
                             Telephone = "00000000",
                             Ville = "Tunis"
                         });
@@ -2206,14 +2203,8 @@ namespace Access.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("CollaborateurId")
+                    b.Property<int?>("CollaborateurId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CollaborateurName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Gouvernorat")
                         .IsRequired()
@@ -2237,6 +2228,24 @@ namespace Access.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ResponsableEmail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ResponsableName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ResponsableTel")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("Telephone")
                         .IsRequired()
@@ -2288,26 +2297,7 @@ namespace Access.Infrastructure.Migrations
                     b.ToTable("SocieteDepartements", (string)null);
                 });
 
-            modelBuilder.Entity("Access.AppCore.Entities.TaxeType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Intitule")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TaxeTypes", (string)null);
-                });
-
-            modelBuilder.Entity("Access.AppCore.Entities.Taxes", b =>
+            modelBuilder.Entity("Access.AppCore.Entities.Taxe", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2340,11 +2330,30 @@ namespace Access.Infrastructure.Migrations
                         .HasColumnType("decimal(18, 3)");
 
                     b.HasKey("Id")
-                        .HasName("PK_TaxesValeurAjoutee");
+                        .HasName("PK_Taxes");
 
                     b.HasIndex("TaxeTypeId");
 
                     b.ToTable("Taxes", (string)null);
+                });
+
+            modelBuilder.Entity("Access.AppCore.Entities.TaxeType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Intitule")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaxeTypes", (string)null);
                 });
 
             modelBuilder.Entity("Access.AppCore.Entities.Vehicule", b =>
@@ -2464,12 +2473,6 @@ namespace Access.Infrastructure.Migrations
                     b.Property<int>("GouvernoratId")
                         .HasColumnType("int");
 
-                    b.Property<string>("GouvernoratIntitule")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
                     b.Property<string>("Intitule")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -2546,19 +2549,21 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Banque", "Banque")
                         .WithMany("Cheques")
                         .HasForeignKey("BanqueId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Cheques_Banques");
 
                     b.HasOne("Access.AppCore.Entities.ChequeStatut", "ChequeStatut")
                         .WithMany("Cheques")
                         .HasForeignKey("ChequeStatutId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Cheques_ChequeStatuts");
 
                     b.HasOne("Access.AppCore.Entities.Chequier", "Chequier")
                         .WithMany("Cheques")
                         .HasForeignKey("ChequierId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Cheques_Chequiers");
 
@@ -2574,12 +2579,14 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Banque", "Banque")
                         .WithMany("Chequiers")
                         .HasForeignKey("BanqueId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Chequiers_Banques");
 
                     b.HasOne("Access.AppCore.Entities.ChequierStatut", "ChequierStatut")
                         .WithMany("Chequiers")
                         .HasForeignKey("ChequierStatutId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Chequiers_ChequierStatuts");
 
@@ -2593,12 +2600,14 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Gouvernorat", "Gouvernorat")
                         .WithMany("Cites")
                         .HasForeignKey("GouvernoratId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Cites_Gouvernorats");
 
                     b.HasOne("Access.AppCore.Entities.Ville", "Ville")
                         .WithMany("Cites")
                         .HasForeignKey("VilleId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Cites_Villes");
 
@@ -2612,46 +2621,54 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Client", "ClientInfo")
                         .WithMany("Clients")
                         .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .HasConstraintName("FK_Clients_Clients");
 
                     b.HasOne("Access.AppCore.Entities.ClientType", "ClientType")
                         .WithMany("Clients")
                         .HasForeignKey("ClientTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Clients_ClientTypes");
 
                     b.HasOne("Access.AppCore.Entities.ClientWarehouse", "ClientWarehouse")
                         .WithMany("Clients")
                         .HasForeignKey("ClientWarehouseId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .HasConstraintName("FK_Clients_ClientWarehouses");
 
                     b.HasOne("Access.AppCore.Entities.Collaborateur", "Collaborateur")
                         .WithMany("Clients")
                         .HasForeignKey("CollaborateurId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Clients_Collaborateurs");
 
                     b.HasOne("Access.AppCore.Entities.FacturationCategory", "FacturationCategorie")
                         .WithMany("Clients")
                         .HasForeignKey("FacturationCategorieId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Clients_FacturationCategories");
 
                     b.HasOne("Access.AppCore.Entities.ModesReglementFacturation", "ModeReglementFacturation")
                         .WithMany("Clients")
                         .HasForeignKey("ModeReglementFacturationId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Clients_ModesReglementFacturation");
 
                     b.HasOne("Access.AppCore.Entities.ModesReglementPaiement", "ModeReglementPaiment")
                         .WithMany("Clients")
                         .HasForeignKey("ModeReglementPaimentId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Clients_ModesReglementPaiement");
 
                     b.HasOne("Access.AppCore.Entities.Service", "Service")
                         .WithMany("Clients")
                         .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Clients_Services");
 
@@ -2677,6 +2694,7 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Client", "Client")
                         .WithMany("ClientContacts")
                         .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_ClientContacts_Clients");
 
@@ -2688,12 +2706,14 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.SocieteAgence", "Agence")
                         .WithMany("Collaborateurs")
                         .HasForeignKey("AgenceId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Collaborateurs_SocieteAgences");
 
                     b.HasOne("Access.AppCore.Entities.CollaborateurRole", "Role")
                         .WithMany("Collaborateurs")
                         .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Collaborateurs_CollaborateurRoles");
 
@@ -2704,13 +2724,9 @@ namespace Access.Infrastructure.Migrations
 
             modelBuilder.Entity("Access.AppCore.Entities.SocieteAgence", b =>
                 {
-                    b.HasOne("Access.AppCore.Entities.Collaborateur", "Collaborateur")
+                    b.HasOne("Access.AppCore.Entities.Collaborateur", null)
                         .WithMany("SocieteAgences")
-                        .HasForeignKey("CollaborateurId")
-                        .IsRequired()
-                        .HasConstraintName("FK_SocieteAgences_Collaborateurs");
-
-                    b.Navigation("Collaborateur");
+                        .HasForeignKey("CollaborateurId");
                 });
 
             modelBuilder.Entity("Access.AppCore.Entities.SocieteDepartement", b =>
@@ -2718,17 +2734,19 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Collaborateur", "Collaborateur")
                         .WithMany("SocieteDepartements")
                         .HasForeignKey("CollaborateurId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_SocieteDepartements_Collaborateurs");
 
                     b.Navigation("Collaborateur");
                 });
 
-            modelBuilder.Entity("Access.AppCore.Entities.Taxes", b =>
+            modelBuilder.Entity("Access.AppCore.Entities.Taxe", b =>
                 {
                     b.HasOne("Access.AppCore.Entities.TaxeType", "TaxeType")
                         .WithMany("Taxes")
                         .HasForeignKey("TaxeTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Taxes_Taxes");
 
@@ -2740,6 +2758,7 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Gouvernorat", "Gouvernorat")
                         .WithMany("Villes")
                         .HasForeignKey("GouvernoratId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_Villes_Gouvernorats");
 
@@ -2751,24 +2770,28 @@ namespace Access.Infrastructure.Migrations
                     b.HasOne("Access.AppCore.Entities.Cite", "Cite")
                         .WithMany("ZoneVilles")
                         .HasForeignKey("CiteId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_ZoneVilles_Cites");
 
                     b.HasOne("Access.AppCore.Entities.Gouvernorat", "Gouvernorat")
                         .WithMany("ZoneVilles")
                         .HasForeignKey("GouvernoratId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_ZoneVilles_Gouvernorats");
 
                     b.HasOne("Access.AppCore.Entities.Ville", "Ville")
                         .WithMany("ZoneVilles")
                         .HasForeignKey("VilleId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_ZoneVilles_Villes");
 
                     b.HasOne("Access.AppCore.Entities.Zone", "Zone")
                         .WithMany("ZoneVilles")
                         .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_ZoneVilles_Zones");
 

@@ -12,7 +12,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.ToTable("Prospects");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+                     .ValueGeneratedOnAdd();
             builder.Property(e => e.Abreviation)
                 .HasMaxLength(100)
                 .IsUnicode(false);

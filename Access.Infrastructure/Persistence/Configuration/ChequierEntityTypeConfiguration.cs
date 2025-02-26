@@ -11,7 +11,7 @@ namespace Access.Infrastructure.Persistence.Configuration
         {
             builder.ToTable("Chequiers");
             builder.HasKey(e => e.Id)
-                     .HasName("Id");
+                    ;
             builder.Property(e => e.Id)
        .ValueGeneratedOnAdd();
             builder.Property(e => e.ChequierStatutIntitule)
@@ -28,12 +28,12 @@ namespace Access.Infrastructure.Persistence.Configuration
                 .IsUnicode(false);
             builder.HasOne(d => d.Banque).WithMany(p => p.Chequiers)
                .HasForeignKey(d => d.BanqueId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
+               .OnDelete(DeleteBehavior.NoAction)
                .HasConstraintName("FK_Chequiers_Banques");
 
             builder.HasOne(d => d.ChequierStatut).WithMany(p => p.Chequiers)
                 .HasForeignKey(d => d.ChequierStatutId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Chequiers_ChequierStatuts");
         }
     }

@@ -27,10 +27,11 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.Property(e => e.Telephone)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+
             builder.HasOne(d => d.Client).WithMany(p => p.ClientContacts)
                 .HasForeignKey(d => d.ClientId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ClientContacts_Clients");
+                .HasConstraintName("FK_ClientContacts_Clients")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

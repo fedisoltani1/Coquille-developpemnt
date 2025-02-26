@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ReclamationPriorite
+public class ReclamationPriorite : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string Intitule { get; set; } = null!;
 
     public string Couleur { get; set; } = null!;

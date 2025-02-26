@@ -1,0 +1,142 @@
+﻿@model Access.Web.Modeles.SocieteAgence.SocieteAgenceViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="UpdateForm">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-design">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Modifier l'agence</h4>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-dark me-2" onclick="location.href='/SocieteAgence/Index'">
+                                <i class="fa fa-reply me-2"></i>Retour
+                            </button>
+                            <button type="submit" class="btn btn-success me-2" id="btnSubmit">
+                                <i class="fa fa-check-circle me-2"></i>Mettre à jour
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-design mb-3">
+                <div class="card-body">
+                    <h5 class="mt-4 mb-3 text-primary">Informations agence</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Intitule" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="Intitule" class="form-control"  />
+                                <span asp-validation-for="Intitule" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label asp-for="Telephone" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="Telephone" class="form-control"  />
+                                <span asp-validation-for="Telephone" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label asp-for="MatriculeFiscale" class="form-label"></label>
+                                <input asp-for="MatriculeFiscale" class="form-control"  />
+                                <span asp-validation-for="MatriculeFiscale" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="AdresseMail" class="form-label"></label>
+                                <input asp-for="AdresseMail" class="form-control"/>
+                                <span asp-validation-for="AdresseMail" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-design mb-3">
+                <div class="card-body">
+                    <h5 class="mt-4 mb-3 text-primary">Informations localisation agence</h5>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label asp-for="Adresse" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="Adresse" class="form-control" />
+                                <span asp-validation-for="Adresse" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label asp-for="Ville" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="Ville" class="form-control"  />
+                                <span asp-validation-for="Ville" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label asp-for="Gouvernorat" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="Gouvernorat" class="form-control"  />
+                                <span asp-validation-for="Gouvernorat" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label asp-for="CodePostal" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="CodePostal" class="form-control"/>
+                                <span asp-validation-for="CodePostal" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-design mb-3">
+                <div class="card-body">
+                    <h5 class="mt-4 mb-3 text-primary">Informations responsable agence</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="ResponsableName" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="ResponsableName" class="form-control" />
+                                <span asp-validation-for="ResponsableName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="ResponsableTel" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="ResponsableTel" class="form-control" />
+                                <span asp-validation-for="ResponsableTel" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="ResponsableEmail" class="form-label"></label><span style="color:red">*</span>
+                                <input asp-for="ResponsableEmail" class="form-control" />
+                                <span asp-validation-for="ResponsableEmail" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript" src="~/js/Prametrage/SocieteAgence/SocieteAgence.js"></script>
+}

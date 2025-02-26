@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Inventaire
+public class Inventaire : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string Numero { get; set; } = null!;
 
     public int SocieteAgenceId { get; set; }

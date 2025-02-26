@@ -11,25 +11,25 @@ namespace Access.Infrastructure.Persistence.Configuration
         {
             builder.ToTable("ZoneVilles");
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+         .ValueGeneratedOnAdd();
             builder.HasOne(d => d.Cite).WithMany(p => p.ZoneVilles)
                  .HasForeignKey(d => d.CiteId)
-                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .OnDelete(DeleteBehavior.NoAction)
                  .HasConstraintName("FK_ZoneVilles_Cites");
 
             builder.HasOne(d => d.Gouvernorat).WithMany(p => p.ZoneVilles)
                 .HasForeignKey(d => d.GouvernoratId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_ZoneVilles_Gouvernorats");
 
             builder.HasOne(d => d.Ville).WithMany(p => p.ZoneVilles)
                 .HasForeignKey(d => d.VilleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_ZoneVilles_Villes");
 
             builder.HasOne(d => d.Zone).WithMany(p => p.ZoneVilles)
                 .HasForeignKey(d => d.ZoneId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_ZoneVilles_Zones");
 
         }

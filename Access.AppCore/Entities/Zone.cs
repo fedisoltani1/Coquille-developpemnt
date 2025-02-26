@@ -1,13 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Zone
+public class Zone : Bases.EntiteBase<int>
 {
     public Zone()
     {
         ZoneVilles = new HashSet<ZoneVille>();
     }
-
-    public int Id { get; set; }
 
     public string Code { get; set; } = null!;
 

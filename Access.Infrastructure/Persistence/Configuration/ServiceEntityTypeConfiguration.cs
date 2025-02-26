@@ -12,7 +12,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.ToTable("Services");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+             .ValueGeneratedOnAdd();
             builder.Property(e => e.Code)
                .HasMaxLength(100)
                .IsUnicode(false);

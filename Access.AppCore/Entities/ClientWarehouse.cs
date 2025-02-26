@@ -1,13 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ClientWarehouse
+public class ClientWarehouse : Bases.EntiteBase<int>
 {
     public ClientWarehouse()
     {
         Clients = new HashSet<Client>();
     }
-
-    public int Id { get; set; }
 
     public int ClientId { get; set; }
 

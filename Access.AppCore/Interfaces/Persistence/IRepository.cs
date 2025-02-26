@@ -24,10 +24,16 @@ namespace Access.AppCore.Interfaces.Persistances
 
         Task<int> CountAsync(Expression<Func<TEntite, bool>> expression);
 
+        Task<TEntite> FirstAsync(
+             Expression<Func<TEntite, bool>>? expression = null,
+             params Func<IQueryable<TEntite>, IIncludableQueryable<TEntite, object>>[] includes);
+
         Task<bool> ExistAsync(Expression<Func<TEntite, bool>> expression);
 
         Task<List<TEntite>> ToListAsync(params Func<IQueryable<TEntite>, IIncludableQueryable<TEntite, object>>[] includes);
 
         Task<List<TEntite>> ToListAsync(Expression<Func<TEntite, bool>> expression, params Func<IQueryable<TEntite>, IIncludableQueryable<TEntite, object>>[] includes);
+
+        void Detacher(TEntite entite);
     }
 }

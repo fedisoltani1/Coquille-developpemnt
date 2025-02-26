@@ -1,13 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class FacturationCategory
+public class FacturationCategory : Bases.EntiteBase<int>
 {
     public FacturationCategory()
     {
         Clients = new HashSet<Client>();
     }
-
-    public int Id { get; set; }
 
     public string Intitule { get; set; } = null!;
 

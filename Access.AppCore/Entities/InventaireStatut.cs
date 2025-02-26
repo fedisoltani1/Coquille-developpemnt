@@ -3,9 +3,7 @@ using System.Collections.Generic;
 
 namespace Access.AppCore.Entities;
 
-public class InventaireStatut
+public class InventaireStatut : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string Intitule { get; set; } = null!;
 }

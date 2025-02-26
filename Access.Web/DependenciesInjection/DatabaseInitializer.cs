@@ -12,44 +12,30 @@ namespace Access.Web.DependenciesInjection
             using (var scope = app.Services.CreateScope())
             {
                 var dbContexts = new List<DbContext>()
-                {
-                    scope.ServiceProvider.GetRequiredService<ColiZenDbContext>(),
-                };
+                    {
+                        scope.ServiceProvider.GetRequiredService<ColiZenDbContext>(),
+                    };
 
                 var databaseToBackup = new List<DbContext>()
-                {
-                    scope.ServiceProvider.GetRequiredService<ColiZenDbContext>(),
-                };
+                    {
+                        scope.ServiceProvider.GetRequiredService<ColiZenDbContext>(),
+                    };
 
                 // Backup databases
                 foreach (var dbContext in databaseToBackup)
                 {
+                    var aa = dbContext.Database.GetPendingMigrations();
                     if (dbContext.Database.GetPendingMigrations().Any())
                     {
                         try
                         {
-                            BackupDatabase(dbContext);
+                            BackupDatabase(dbContext); // Backup the database before applying migrations
+                            dbContext.Database.Migrate(); // Apply pending migrations
                         }
                         catch (Exception ex)
                         {
                             LogManager.GetCurrentClassLogger().Error($"Erreur lors de la sauvegarde de la base de données : {ex.Message}");
                         }
-                    }
-                }
-
-                // Migrate databases
-                foreach (var dbContext in dbContexts)
-                {
-                    try
-                    {
-                        if (dbContext.Database.GetPendingMigrations().Any())
-                        {
-                            dbContext.Database.Migrate();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.GetCurrentClassLogger().Error($"Erreur lors de la migration de la base de données : {ex.Message}");
                     }
                 }
             }
@@ -78,6 +64,7 @@ namespace Access.Web.DependenciesInjection
                     command.CommandTimeout = 10;
                     command.ExecuteNonQuery();
                 }
+
                 connection.Close();
             }
         }

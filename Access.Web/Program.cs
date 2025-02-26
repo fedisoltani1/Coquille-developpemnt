@@ -20,6 +20,8 @@ namespace Access.Web
             catch (Exception ex)
             {
                 LogManager.GetCurrentClassLogger().Error(ex);
+                Console.WriteLine(ex); // Log the exception
+                throw;
             }
             finally
             {

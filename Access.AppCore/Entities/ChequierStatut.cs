@@ -1,13 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ChequierStatut
+public class ChequierStatut : Bases.EntiteBase<int>
 {
     public ChequierStatut()
     {
         Chequiers = new HashSet<Chequier>();
     }
-
-    public int Id { get; set; }
 
     public string Intitule { get; set; } = null!;
 

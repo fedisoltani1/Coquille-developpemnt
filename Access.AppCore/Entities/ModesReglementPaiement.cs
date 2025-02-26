@@ -1,13 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ModesReglementPaiement
+public class ModesReglementPaiement : Bases.EntiteBase<int>
 {
     public ModesReglementPaiement()
     {
         Clients = new HashSet<Client>();
-    }
-
-    public int Id { get; set; }
+    } 
 
     public string Code { get; set; } = null!;
 

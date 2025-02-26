@@ -10,7 +10,7 @@ namespace Access.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<CommandeEtape> builder)
         {
             builder.ToTable("CommandeEtapes");
-            builder.HasKey(e => e.Id).HasName("PK_CommandeEtat");
+            builder.HasKey(e => e.Id).HasName("PK_CommandeEtape");
             builder.Property(e => e.Id)
       .ValueGeneratedOnAdd();
             builder.Property(e => e.Code)

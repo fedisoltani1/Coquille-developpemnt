@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class LogModificationStatutCommande
+public class LogModificationStatutCommande : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public int CommandeId { get; set; }
 
     public string CommandeNumero { get; set; } = null!;

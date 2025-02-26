@@ -1,14 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class ClientType 
+public class ClientType : Bases.EntiteBase<int>
 {
-
     public ClientType()
     {
         Clients = new HashSet<Client>();
     }
-
-    public int Id { get; set; }
 
     public string Intitule { get; set; } = null!;
 

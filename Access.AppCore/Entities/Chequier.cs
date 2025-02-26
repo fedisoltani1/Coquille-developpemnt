@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Chequier
+public class Chequier : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string NumeroDebut { get; set; } = null!;
 
     public string NumeroFin { get; set; } = null!;

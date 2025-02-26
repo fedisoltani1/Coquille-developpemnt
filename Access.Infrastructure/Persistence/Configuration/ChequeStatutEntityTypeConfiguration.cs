@@ -10,10 +10,10 @@ namespace Access.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<ChequeStatut> builder)
         {
             builder.ToTable("ChequeStatuts");
-            builder.HasKey(e => e.Id)
-                     .HasName("Id");
+            builder.HasKey(e => e.Id);
             builder.Property(e => e.Id)
-       .ValueGeneratedOnAdd();
+                   .ValueGeneratedOnAdd();
+
             builder.Property(e => e.Intitule)
                  .HasMaxLength(100)
                  .IsUnicode(false);

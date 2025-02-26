@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class FactureLigne
+public class FactureLigne : Bases.EntiteBase<int> 
 {
-    public int Id { get; set; }
-
     public int FactureId { get; set; }
 
     public int FactureArticleId { get; set; }

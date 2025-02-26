@@ -1,8 +1,10 @@
 ﻿using Access.AppCore.DependenciesInjection;
 using Access.Infrastructure.Persistence;
+using Access.Web.DependenciesInjection;
 using Access.Web.Mapping;
 using Application.Configuration.ExtentionsExtractor;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Access.Web.DependenciesInjection
 {
@@ -10,24 +12,28 @@ namespace Access.Web.DependenciesInjection
     {
         public void Enregistrer(IServiceCollection services, IConfiguration configuration)
         {
-            // Mappings de automapper
+            // Configuration d'AutoMapper
             services.AddScoped<ApplicationConfigExtractor>();
             services.AddScoped<DatabaseInitializer>();
             services.AddSingleton<DbContextConnectionStrings>();
             services.AddAutoMapper(typeof(AccessWebProfile));
+
+            // Configuration des sessions
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            services.AddDbContext<ColiZenDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("ConnexionApplicative"))
+            );
 
+            // Ajout des contrôleurs avec vues
+            services.AddControllersWithViews();
             services.AddRazorPages();
-            //services.AddDbContext<ColiZenDbContext>((serviceProvider, options) =>
-            //{
-            //    var dbContextConfig = serviceProvider.GetRequiredService<DbContextConnectionStrings>();
-            //    options.UseSqlServer(dbContextConfig.GetConnectionString().applicationDatabase);
-            //});
-            // protection du cookie de l'application
+
+
+            // Configuration des cookies
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;

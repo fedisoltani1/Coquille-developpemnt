@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Reclamation 
+public class Reclamation : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string? CommandeNumero { get; set; }
 
     public string Numero { get; set; } = null!;

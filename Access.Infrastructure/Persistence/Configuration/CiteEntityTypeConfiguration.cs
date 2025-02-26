@@ -11,30 +11,25 @@ namespace Access.Infrastructure.Persistence.Configuration
         {
             builder.ToTable("Cites");
             builder.HasKey(e => e.Id)
-                     .HasName("Id");
+                    ;
             builder.Property(e => e.Id)
        .ValueGeneratedOnAdd();
             builder.Property(e => e.Code)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            builder.Property(e => e.GouvernoratIntitule)
-                .HasMaxLength(100)
-                .IsUnicode(false);
             builder.Property(e => e.Intitule)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            builder.Property(e => e.VilleIntitule)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             builder.HasOne(d => d.Gouvernorat).WithMany(p => p.Cites)
               .HasForeignKey(d => d.GouvernoratId)
-              .OnDelete(DeleteBehavior.ClientSetNull)
-              .HasConstraintName("FK_Cites_Gouvernorats");
+              .HasConstraintName("FK_Cites_Gouvernorats")
+              .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Ville).WithMany(p => p.Cites)
                 .HasForeignKey(d => d.VilleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Cites_Villes");
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_Cites_Villes")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

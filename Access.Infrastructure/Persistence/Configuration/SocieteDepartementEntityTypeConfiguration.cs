@@ -12,7 +12,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.ToTable("SocieteDepartements");
             builder.HasKey(e => e.Id).HasName("PK_Departements");
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+                 .ValueGeneratedOnAdd();
 
             builder.Property(e => e.Intitule)
                 .HasMaxLength(100)
@@ -24,7 +24,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.HasOne(d => d.Collaborateur).WithMany(p => p.SocieteDepartements)
                 .HasForeignKey(d => d.CollaborateurId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_SocieteDepartements_Collaborateurs");
+                .HasConstraintName("FK_SocieteDepartements_Collaborateurs").OnDelete(DeleteBehavior.NoAction);
 
         }
     }

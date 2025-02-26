@@ -93,7 +93,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.Property(e => e.NomPremierResponsable)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            builder.Property(e => e.NombreTentativeLivraison).HasDefaultValue(3);
+            builder.Property(e => e.NombreTentativeLivraison);
             builder.Property(e => e.ServiceInitule)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -106,41 +106,43 @@ namespace Access.Infrastructure.Persistence.Configuration
 
             builder.HasOne(d => d.ClientInfo).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.ClientId)
-                .HasConstraintName("FK_Clients_Clients");
+                .HasConstraintName("FK_Clients_Clients")
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.ClientType).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.ClientTypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Clients_ClientTypes");
+                .HasConstraintName("FK_Clients_ClientTypes")
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.ClientWarehouse).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.ClientWarehouseId)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Clients_ClientWarehouses");
 
             builder.HasOne(d => d.Collaborateur).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.CollaborateurId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Clients_Collaborateurs");
 
             builder.HasOne(d => d.FacturationCategorie).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.FacturationCategorieId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                 .OnDelete(DeleteBehavior.NoAction)
                 .HasConstraintName("FK_Clients_FacturationCategories");
 
             builder.HasOne(d => d.ModeReglementFacturation).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.ModeReglementFacturationId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Clients_ModesReglementFacturation");
+                .HasConstraintName("FK_Clients_ModesReglementFacturation")
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.ModeReglementPaiment).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.ModeReglementPaimentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Clients_ModesReglementPaiement");
+                .HasConstraintName("FK_Clients_ModesReglementPaiement")
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Service).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.ServiceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Clients_Services");
+                .HasConstraintName("FK_Clients_Services")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class VehiculeType
+public class VehiculeType : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string Intitule { get; set; } = null!;
 }

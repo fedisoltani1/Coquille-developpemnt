@@ -12,7 +12,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.ToTable("ReclamationTypes");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+                 .ValueGeneratedOnAdd();
             builder.Property(e => e.Intitule)
                 .HasMaxLength(100)
                 .IsUnicode(false);

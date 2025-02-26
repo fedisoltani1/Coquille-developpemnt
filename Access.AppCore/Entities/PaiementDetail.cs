@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class PaiementDetail
+public class PaiementDetail : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public int PaiementId { get; set; }
 
     public string PaiementNumero { get; set; } = null!;

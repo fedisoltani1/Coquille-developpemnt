@@ -1,9 +1,7 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class SocieteDepartement
+public class SocieteDepartement : Bases.EntiteBase<int>
 {
-    public int Id { get; set; }
-
     public string Intitule { get; set; } = null!;
 
     public bool IsActif { get; set; }

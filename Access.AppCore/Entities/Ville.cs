@@ -1,13 +1,12 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class Ville
+public class Ville : Bases.EntiteBase<int>
 {
     public Ville()
     {
         ZoneVilles = new HashSet<ZoneVille>();
+        Cites = new HashSet<Cite>();
     }
-
-    public int Id { get; set; }
 
     public string Code { get; set; } = null!;
 
@@ -15,11 +14,9 @@ public class Ville
 
     public int GouvernoratId { get; set; }
 
-    public string GouvernoratIntitule { get; set; } = null!;
-
-    public virtual ICollection<Cite> Cites { get; set; } = new List<Cite>();
+    public virtual ICollection<Cite> Cites { get; set; }
 
     public virtual Gouvernorat Gouvernorat { get; set; } = null!;
 
-    public virtual ICollection<ZoneVille> ZoneVilles { get; set; } = new List<ZoneVille>();
+    public virtual ICollection<ZoneVille> ZoneVilles { get; set; }
 }

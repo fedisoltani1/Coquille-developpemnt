@@ -1,15 +1,15 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class TaxeType
+public class TaxeType : Bases.EntiteBase<int>
 {
     public TaxeType()
     {
-        Taxes = new HashSet<Taxes>();
+        Taxes = new HashSet<Taxe>();
     }
 
     public int Id { get; set; }
 
     public string Intitule { get; set; } = null!;
 
-    public virtual ICollection<Taxes> Taxes { get; set; }
+    public virtual ICollection<Taxe> Taxes { get; set; }
 }

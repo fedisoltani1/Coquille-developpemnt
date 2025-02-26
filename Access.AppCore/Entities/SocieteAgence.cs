@@ -1,13 +1,11 @@
 ﻿namespace Access.AppCore.Entities;
 
-public class SocieteAgence
+public class SocieteAgence : Bases.EntiteBase<int>
 {
     public SocieteAgence()
     {
-        Collaborateurs = new HashSet <Collaborateur>();
+        Collaborateurs = new HashSet<Collaborateur>();
     }
-
-    public int Id { get; set; }
 
     public string Intitule { get; set; } = null!;
 
@@ -23,15 +21,15 @@ public class SocieteAgence
 
     public string? AdresseMail { get; set; }
 
-    public int CollaborateurId { get; set; }
+    public string ResponsableName { get; set; } = null!;
 
-    public string CollaborateurName { get; set; } = null!;
+    public string ResponsableEmail { get; set; } = null!;
+
+    public string ResponsableTel { get; set; } = null!;
 
     public bool IsActif { get; set; }
 
     public string? MatriculeFiscale { get; set; }
-
-    public virtual Collaborateur Collaborateur { get; set; } = null!;
 
     public virtual ICollection<Collaborateur> Collaborateurs { get; set; }
 }

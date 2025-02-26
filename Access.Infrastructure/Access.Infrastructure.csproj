@@ -42,8 +42,4 @@
     <ProjectReference Include="..\Application.Configuration\Application.Configuration.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Repositories\" />
-  </ItemGroup>
-
 </Project>

@@ -16,17 +16,14 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.Property(e => e.Code)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            builder.Property(e => e.GouvernoratIntitule)
-                .HasMaxLength(100)
-                .IsUnicode(false);
             builder.Property(e => e.Intitule)
                 .HasMaxLength(100)
                 .IsUnicode(false);
 
             builder.HasOne(d => d.Gouvernorat).WithMany(p => p.Villes)
                 .HasForeignKey(d => d.GouvernoratId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Villes_Gouvernorats");
+                .HasConstraintName("FK_Villes_Gouvernorats")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

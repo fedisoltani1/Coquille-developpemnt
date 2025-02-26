@@ -12,7 +12,7 @@ namespace Access.Infrastructure.Persistence.Configuration
             builder.ToTable("ReclamationPriorites");
             builder.HasKey(e => e.Id).HasName("PK_Table_3");
             builder.Property(e => e.Id)
- .ValueGeneratedOnAdd();
+            .ValueGeneratedOnAdd();
 
             builder.Property(e => e.Couleur)
                 .HasMaxLength(100)
